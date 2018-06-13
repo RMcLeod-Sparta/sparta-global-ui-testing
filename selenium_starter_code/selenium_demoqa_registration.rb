@@ -6,8 +6,8 @@ class SeleniumDemoReg
   # page_url
   PAGE_URL = 'http://demoqa.com/registration/'
   # Page field
-  FIRST_NAME_FIELD =  # id
-  LAST_NAME_FIELD =  # id
+  FIRST_NAME_FIELD = 'name_3_firstname' # id
+  LAST_NAME_FIELD = 'name_3_lastname' # id
   MARITAL_STATUS =  # id
   HOBBY_STATUS =  # values
   COUNTRY_DROP_DOWN_LIST =  # id
@@ -40,6 +40,7 @@ class SeleniumDemoReg
   # first name field management - Difficulty Easy
 
   def set_first_name_field(first_name)
+    @chrome_driver.find_element(:id, FIRST_NAME_FIELD).send_keys(first_name)
   end
 
   def get_first_name_field_value

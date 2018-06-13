@@ -14,7 +14,8 @@ describe 'testing the demoqa registration page' do
     end
 
     it 'should accept a first name' do
-      pending
+      expect(@driver.set_first_name_field('Robert')).to be_kind_of String
+      sleep 2
     end
 
     it 'should accept a last name' do
@@ -29,7 +30,7 @@ describe 'testing the demoqa registration page' do
       pending
     end
 
-    it 'should have a country default of Afhghanistan' do
+    it 'should have a country default of Afghanistan' do
       pending
     end
 
