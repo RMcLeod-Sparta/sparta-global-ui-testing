@@ -8,7 +8,7 @@ class SeleniumDemoReg
   # Page field
   FIRST_NAME_FIELD = 'name_3_firstname' # id
   LAST_NAME_FIELD = 'name_3_lastname' # id
-  MARITAL_STATUS =  # id
+  MARITAL_STATUS =  'radio_4[]'# id
   HOBBY_STATUS =  # values
   COUNTRY_DROP_DOWN_LIST =  # id
   DOB_MONTH_DROPDOWN_LIST =  # id
@@ -44,26 +44,37 @@ class SeleniumDemoReg
   end
 
   def get_first_name_field_value
+    @chrome_driver.find_element(:id, FIRST_NAME_FIELD)['value']
   end
 
   def first_name_field_displayed
+    @chrome_driver.find_element(:id, FIRST_NAME_FIELD).displayed?
   end
 
   # last name field management - Difficulty Easy
 
   def set_last_name_field(last_name)
+    @chrome_driver.find_element(:id, LAST_NAME_FIELD).send_keys(last_name)
   end
 
   def get_last_name_field_value
+    @chrome_driver.find_element(:id, LAST_NAME_FIELD)['value']
   end
 
   def last_name_field_displayed
+    @chrome_driver.find_element(:id, LAST_NAME_FIELD).displayed?
   end
 
   # Marital option management - Difficulty Medium
 
   def select_marital_option(marital_status)
     # Consider something like a case statement and check the selenium selected? method
+    @chrome_driver.find_element(:name, MARITAL_STATUS).click
+  end
+
+  def get_marital_option
+    # need to add all the things with a radio_4[] name to an array so i can get each of there values
+    @chrome_driver.find_element(:name, MARITAL_STATUS)['value']
   end
 
   # hobby option management - Difficulty Medium
