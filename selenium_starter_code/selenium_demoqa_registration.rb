@@ -8,14 +8,14 @@ class SeleniumDemoReg
   # Page field
   FIRST_NAME_FIELD = 'name_3_firstname' # id
   LAST_NAME_FIELD = 'name_3_lastname' # id
-  MARITAL_STATUS =  'radio_4[]'# id
-  HOBBY_STATUS =  # values
-  COUNTRY_DROP_DOWN_LIST =  # id
-  DOB_MONTH_DROPDOWN_LIST =  # id
-  DOB_DAY_DROPDOWN_LIST =  # id
-  DOB_YEAR_DROPDOWN_LIST =  # id
-  PHONE_NUMBER_FIELDS =  # id
-  USERNAME_FIELD =  # id
+  MARITAL_STATUS =  '//*[@id="pie_register"]/li[2]/div/div/input'# id
+  HOBBY_STATUS =  'checkbox_5[]'# values
+  COUNTRY_DROP_DOWN_LIST = 'dropdown_7' # id
+  DOB_MONTH_DROPDOWN_LIST = 'mm_date_8' # id
+  DOB_DAY_DROPDOWN_LIST = 'dd_date_8' # id
+  DOB_YEAR_DROPDOWN_LIST = 'yy_date_8' # id
+  PHONE_NUMBER_FIELDS = 'phone_9' # id
+  USERNAME_FIELD =  'username'# id
   EMAIL_FIELD =  # id
   PROFILE_PICTURE_BUTTON =  # id
   DESCRIPTION_FIELD =  # id
@@ -69,19 +69,26 @@ class SeleniumDemoReg
 
   def select_marital_option(marital_status)
     # Consider something like a case statement and check the selenium selected? method
-    @chrome_driver.find_element(:name, MARITAL_STATUS).click
-  end
+    # Need to add them to an array to get each
+    if (marital_status == 'single')
+      @chrome_driver.find_element(:xpath, MARITAL_STATUS + '[1]').click
+      return @chrome_driver.find_element(:xpath, MARITAL_STATUS + '[1]').selected?
+    elsif (marital_status == 'married')
+      @chrome_driver.find_element(:xpath, MARITAL_STATUS + '[2]').click
+      return @chrome_driver.find_element(:xpath, MARITAL_STATUS + '[2]').selected?
+    elsif (marital_status == 'divorced')
+      @chrome_driver.find_element(:xpath, MARITAL_STATUS + '[3]').click
+      return @chrome_driver.find_element(:xpath, MARITAL_STATUS + '[3]').selected?
+    end
 
-  def get_marital_option
-    # need to add all the things with a radio_4[] name to an array so i can get each of there values
-    @chrome_driver.find_element(:name, MARITAL_STATUS)['value']
   end
 
   # hobby option management - Difficulty Medium
 
   def select_hobby_option(hobby)
     # Consider something like a case statement and check the selenium selected? method
-
+    @chrome_driver.find_elements(:name, HOBBY_STATUS)[hobby].click
+    @chrome_driver.find_elements(:name, HOBBY_STATUS)[hobby].selected?
   end
 
   # Select Country - Difficulty HARD
@@ -91,9 +98,11 @@ class SeleniumDemoReg
   # If no solution then a run through will happen once finished
 
   def get_selected_country
+    @chrome_driver.find_element(:id, COUNTRY_DROP_DOWN_LIST)['value']
   end
 
   def country_dropdown_list_select(country)
+    @chrome_driver.find_element(:id, COUNTRY_DROP_DOWN_LIST).send_keys(country)
   end
 
   # DOB management - Difficulty HARD
@@ -103,32 +112,36 @@ class SeleniumDemoReg
   # If no solution then a run through will happen once finished
 
   def dob_month_list_select(month_value)
-
+    @chrome_driver.find_element(:id, DOB_MONTH_DROPDOWN_LIST).send_keys(month_value)
   end
 
   def dob_day_list_select(day_value)
-
+    @chrome_driver.find_element(:id, DOB_DAY_DROPDOWN_LIST).send_keys(day_value)
   end
 
   def dob_year_list_select(year_value)
-
+    @chrome_driver.find_element(:id, DOB_YEAR_DROPDOWN_LIST).send_keys(year_value)
   end
 
 
   # Phone number field management - Difficulty Easy
 
   def set_phone_number_field(phone_number)
+    @chrome_driver.find_element(:id, PHONE_NUMBER_FIELDS).send_keys(phone_number)
   end
 
   def get_phone_number_field_value
+    @chrome_driver.find_element(:id, PHONE_NUMBER_FIELDS)['value'].to_i
   end
 
   #  username field management - Difficulty Easy
 
   def set_user_name_field(user_name)
+    @chrome_driver.find_element(:id, USERNAME_FIELD).send_keys(user_name)
   end
 
   def get_user_name_field_value
+    @chrome_driver.find_element(:id, USERNAME_FIELD)['value']
   end
 
   # Email field management - Difficulty Easy

@@ -26,28 +26,34 @@ describe 'testing the demoqa registration page' do
     end
 
     it 'should accept a marital status selection of Single, Married, or Divorced' do
-      @driver.select_marital_option('married')
-      sleep 3
+      expect(@driver.select_marital_option('single')).to be true
+      expect(@driver.select_marital_option('married')).to be true
+      expect(@driver.select_marital_option('divorced')).to be true
     end
 
     it 'should accept a hobby status selection of Dance, Reading, or Cricket' do
-      pending
+      expect(@driver.select_hobby_option(0)).to be true
+      expect(@driver.select_hobby_option(1)).to be true
+      expect(@driver.select_hobby_option(2)).to be true
     end
 
     it 'should have a country default of Afghanistan' do
-      pending
+      expect(@driver.get_selected_country).to eq 'Afghanistan'
     end
 
     it 'accept a new DOB' do
-      pending
+      @driver.dob_month_list_select(Random.new.rand(1..12))
+      @driver.dob_day_list_select(Random.new.rand(1..31))
+      @driver.dob_year_list_select(Random.new.rand(1950..2014))
     end
 
     it 'should accept a new country value' do
-      pending
+      @driver.country_dropdown_list_select('Congo')
     end
 
     it 'should accept a valid phone number' do
-      pending
+      @driver.set_phone_number_field(Random.new.rand(10000000000..99999999999))
+      expect(@driver.get_phone_number_field_value).to be_between(10000000000, 99999999999).inclusive
     end
 
     it 'should accept a username' do
